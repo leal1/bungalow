@@ -1,6 +1,7 @@
 <template>
   <v-range-slider
   v-model="range"
+  v-on:change="filterProperties"
   :max="max"
   :min="min"
   hide-details
@@ -56,15 +57,17 @@ export default Vue.extend({
 
   },
   methods: {
-    
+    filterProperties() {
+      // emits filtered Price Range to root, so App.Vue can pass to PropertyGrid 
+      this.$root.$emit('filteredPriceRange', {min: this.range[0], max: this.range[1] });
+    }
   },
   mounted: function() {
     // set range and min/max of slider passed from grandparent App.vue
-    this.$set(this.range, 0, this.priceRange[0]);
-    this.$set(this.range, 1, this.priceRange[1]);
-    this.min = this.priceRange[0];
-    this.max = this.priceRange[1]
-    // TODO: have slider filter properties
+    this.$set(this.range, 0, this.priceRange.min);
+    this.$set(this.range, 1, this.priceRange.max);
+    this.min = this.priceRange.min;
+    this.max = this.priceRange.max;
   },
   created() { 
   }

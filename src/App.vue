@@ -1,8 +1,15 @@
 <template>
   <v-app>
     <v-content>
-      <FilterBar :priceRange="priceRange"/>
-      <PropertyGrid @priceRange="updatePriceRange"/>
+      <FilterBar 
+      :priceRange="priceRange"
+      @sortDirection="updateSortDirection"
+      />
+      <PropertyGrid 
+      @priceRange="updatePriceRange"
+      :filteredPriceRange=filteredPriceRange
+      :sortDirection=sortDirection
+      />
     </v-content>
   </v-app>
 </template>
@@ -22,15 +29,34 @@ export default Vue.extend({
   },
 
   data: () => ({
-    priceRange: [0, 0]
+    priceRange: {
+      min: 0,
+      max: 0
+    },
+    filteredPriceRange: {
+      min: 0,
+      max: 0
+    },
+    sortDirection: ''
   }),
   methods: {
     // called when PropertyGrid emits range
-    updatePriceRange(range: any) {
+    updatePriceRange(range: {min: number, max: number}) {
       // sets min-max range to be passed into FilterBar component as prop
-      Vue.set(this.priceRange, 0, range.min);
-      Vue.set(this.priceRange, 1, range.max);
+      this.priceRange.min = range.min;
+      this.priceRange.max = range.max;
+    },
+    updateSortDirection(direction: string) {
+      console.log("update");
+      this.sortDirection = direction;
     }
+  },
+  mounted() {
+    this.$root.$on('filteredPriceRange', (range: {min: number ,max: number}) => {
+      this.filteredPriceRange.min = range.min;
+      this.filteredPriceRange.max = range.max;
+
+    })
   }
 });
 </script>
