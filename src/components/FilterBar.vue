@@ -3,13 +3,11 @@
 
       <v-toolbar-title >Seattle</v-toolbar-title>
         <v-menu offset-y
-        :close-on-content-click=false 
-        >
+        :close-on-content-click=false>
           <template v-slot:activator="{ on }">
             <v-btn class="ml-4"
               text
-              v-on="on"
-            >
+              v-on="on">
               Price
             </v-btn>
           </template>
@@ -39,7 +37,7 @@ export default Vue.extend({
   components: {
     RangeSlider
   },
-
+  // takes in priceRange prop to pass to RangeSlider component.
   props: {
     priceRange: {
       type: Array,
@@ -53,9 +51,7 @@ export default Vue.extend({
 
   },
   methods: {
-    test() {
 
-    }
   }
 });
 

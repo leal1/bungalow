@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- {{ properties[0]}} -->
       <v-container>
         <h3 class="text-center ma-5"> Available now in Seattle </h3>
         <v-row no-gutters>
@@ -10,20 +9,17 @@
             cols="12"
             lg="4"
             md="6"
-            xs="12"
-            >
+            xs="12">
 
-                      <div class="mb-5"
-            is="property-card"
-            
-            v-bind:property="property"
-            v-bind:index="index"
-            v-bind:key="property.id"
-          ></div>
+            <div class="mb-5"
+              is="property-card"
+              v-bind:property="property"
+              v-bind:index="index"
+              v-bind:key="property.id">
+            </div>
           </v-col>
         </v-row>
       </v-container>
-
   </div>
 </template>
 
@@ -42,6 +38,7 @@ export default Vue.extend({
    properties: [] as Property[]
   }),
   created() {
+    // when component is created, fetch properties with images and emit price range from those properties
     propertyService.getProperties()
       .then(properties => {
         this.properties = properties.map((p: any) => new Property(p)).filter((p: any) => p.image !== '');
@@ -52,6 +49,7 @@ export default Vue.extend({
     generatePriceRangeAndEmit() {
       const min = Math.min.apply(Math, this.properties.map((p:any) => p.roomPrices));
       const max = Math.max.apply(Math, this.properties.map((p:any) => p.roomPrices));
+      // emit to parent, so this price range can be passed to the filter bar's range slider.
       this.$emit('priceRange', {min, max});
     }
   }

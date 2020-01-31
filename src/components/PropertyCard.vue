@@ -4,14 +4,14 @@
       class="mx-auto"
     >
  
-
     <v-img
       :src="property.image"
       height="194"
     ></v-img>
+
     <v-card-title>
       {{ property.headline }}
-      </v-card-title>
+    </v-card-title>
 
     <v-card-text>
       <div class="float-right">
@@ -20,12 +20,11 @@
       <div>
         {{ property.availableRoomCount }} of {{ property.totalRoomCount }} rooms available          
       </div>
-
     </v-card-text>
-
 
   </v-card>
 </template>
+
 <style scoped>
 .v-card__title {
   word-break: normal;
@@ -33,6 +32,7 @@
   line-height: 1.4rem;
 }
 </style>
+
 <script lang="ts">
 import Vue from 'vue';
 
@@ -47,6 +47,7 @@ export default Vue.extend({
   }),
   computed: {
     generatePrice(): string {
+      // returns range of prices or just price if there is only one price.
       if(this.property.roomPrices.length > 1)
         return `$${Math.min.apply(Math, this.property.roomPrices)} - ${Math.max.apply(Math,this.property.roomPrices)}`;
       return `$${this.property.roomPrices[0]}`;
