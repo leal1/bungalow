@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-container>
-        <h3 class="text-center ma-5"> Available now in Seattle </h3>
+        <h3 class="text-center ma-8"> Available now in Seattle </h3>
         <v-row no-gutters>
           <v-col
             v-for="(property, index) in filteredProperties"
