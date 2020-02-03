@@ -47,7 +47,6 @@ export default Vue.extend({
       this.priceRange.max = range.max;
     },
     updateSortDirection(direction: string) {
-      console.log("update");
       this.sortDirection = direction;
     }
   },

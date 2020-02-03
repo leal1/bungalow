@@ -55,9 +55,7 @@ export default Vue.extend({
         this.generatePriceRangeAndEmit();
         })
   },
-  mounted() {
-    console.log(this.filteredPriceRange);
-  },
+
   methods: {
     generatePriceRangeAndEmit() {
       const min = Math.min.apply(Math, this.properties.map((p:any) => p.roomPrices));
